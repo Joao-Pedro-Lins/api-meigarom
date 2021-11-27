@@ -3,12 +3,13 @@ import sklearn
 import numpy
 from flask import Flask, request
 import pickle
+import os
 
-from wine_quality import WineQuality
+from wine_quality.Wine_Quality import WineQuality
 
 
 ## carrgando o modelo
-model = pickle.load(open("modelo.pkl", "rb"))
+model = pickle.load(open("model/modelo.pkl", "rb"))
 
 ## instanciando o flask
 app = Flask(__name__)
@@ -37,4 +38,5 @@ def predict():
 
 if __name__ == "__main__":
     ## start flask
-    app.run(host="0.0.0.0", port="8888")
+    port = os.environ.get("PORT", "5000")
+    app.run(host="0.0.0.0", port=port)
